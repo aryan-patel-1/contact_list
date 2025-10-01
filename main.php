@@ -1,17 +1,26 @@
 <?php
 
-while (true) {
+require_once 'Connection/Connection.php';
+require_once 'Contact/Contact.php'; 
+require_once 'Contact/ContactManager.php';
 
+$manager = new ContactManager(DBConnect::getInstance()->getPDO());
+
+while (true) 
+{
     $line = readline("Entrez votre commande : ");
 
-    if ( $line === "list") {
+    if ($line === "list") {
+        $contacts = $manager->findAll();
 
-        echo "affichage de la liste\n" ;
-   
+        foreach ($contacts as $contact) 
+        {
+            echo $contact->toString() . "\n";
+        }  
     }
 
-    else {
+     else {
 
-        echo "Vous avez saisi : $line\n";
+        echo "Commande inconnue : $line\n";
     }
 }
