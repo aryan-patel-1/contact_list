@@ -7,7 +7,9 @@ class Contact
     private string $email;
     private string $phone_number;
 
-    public function __construct(int $id , string $name, string $email, string $phone_number )
+    // Le constructeur est appelé lors de la création d'un nouvel objet Contact
+    // On initialise ici les propriétés avec les valeurs passées en paramètres
+    public function __construct(int $id , string $name, string $email, string $phone_number)
     {
         $this->id = $id;
         $this->name = $name;
@@ -15,29 +17,32 @@ class Contact
         $this->phone_number = $phone_number;
     }
 
-    public static function fromArray(array $array): Contact
+    // Permet de créer un objet Contact directement à partir d'un tableau associatif
+    public static function fromArray(array $contact): Contact
     {
         return new Contact(
-            $array['id'],
-            $array['name'], 
-            $array['email'],
-            $array['phone_number']
+            $contact['id'],
+            $contact['name'], 
+            $contact['email'],
+            $contact['phone_number']
         );
     }
 
+    // Pour afficher le contact dans le terminal
     public function toString(): string
     {
         return $this->id . ", " . $this->name . ", " . $this->email . ", " . $this->phone_number . "\n";
     }
 
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
+    // Pour récupérer ou modifier les propriétés privées 
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
     public function getName(): string

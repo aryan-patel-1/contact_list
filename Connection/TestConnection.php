@@ -1,16 +1,14 @@
 <?php
 
-require_once 'Connection/Connection.php';
+require_once 'Connection.php';
 
-try 
-{
-
+try {
+    // On appelle la méthode statique getInstance() de la classe DBConnect
+    // Cela retourne l'instance unique du Singleton
+    // On appelle getPDO() pour récupérer l'objet PDO (connexion à la base)
     $database = DBConnect::getInstance()->getPDO();
+
     echo "Connexion réussie à la base de données.";
-
-} catch (PDOException $e)
-
-{
-    echo "Erreur de connexion :" . $e->getMessage() . "\n";
-
+} catch (\PDOException $exception) {
+    echo "Erreur de connexion :" . $exception->getMessage() . "\n";
 }
