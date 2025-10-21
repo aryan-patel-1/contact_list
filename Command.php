@@ -11,7 +11,7 @@ class Command
     {
         // À la création de l’objet Command, on instancie un ContactManager
         // On lui passe la connexion à la base de données grâce à DBConnect
-        $this->manager = new ContactManager(DBConnect::getInstance()->getPDO()); 
+        $this->manager = new ContactManager(DBConnect::getInstance()->getPDO());
     }
 
     public function list(): void
@@ -28,7 +28,7 @@ class Command
         echo "id, nom, email, telephone\n";
         // On parcourt le tableau de contacts et on affiche chaque contact
         foreach ($contacts as $contact) {
-            echo $contact->toString();
+            echo $contact;
         }
     }
 
@@ -40,14 +40,14 @@ class Command
             echo "Contact non trouvé\n";
             return;
         }
-        echo $contact->toString();
+        echo $contact;
     }
 
     public function create(string $name, string $email, string $phone_number): void
     {
         // On appelle la méthode create() du ContactManager pour insérer le contact dans la base
         $contact = $this->manager->create($name, $email, $phone_number);
-        echo "Contact créé : " . $contact->toString();
+        echo "Contact créé : " . $contact;
     }
 
     public function delete(int $id): void
@@ -55,4 +55,37 @@ class Command
         $this->manager->delete($id);
         echo "Contact supprimé\n";
     }
+
+    public function help(): void {
+        echo "help : affiche cette aide\n";
+        echo "list : liste les contacts\n";
+        echo "create [nom], [email], [telephone] : crée un contact\n";
+        echo "delete [id] : supprime un contact\n";
+    }
+
+    public function modify(int $id): void
+    {
+        // Permet de chercher le contact correspondant à l'id donné
+        $contact = $this->manager->findById($id);
+
+        if (!$contact) {
+            echo "Contact non trouvé\n";
+            return;
+        }
+
+        $name = readline("Nouveau nom ({$contact->getName()}) : ");
+        $email = readline("Nouvel email ({$contact->getEmail()}) : ");
+        $phone = readline("Nouveau téléphone ({$contact->getPhoneNumber()}) : ");
+
+        // Si pas de valeur alors on garde l'ancienne valeur
+        if (!empty($name)) $contact->setName($name);
+        if (!empty($email)) $contact->setEmail($email);
+        if (!empty($phone)) $contact->setPhoneNumber($phone);
+
+        // Permet l'envoie de l'objet contact mis à jour à ContactManager
+        $this->manager->modify($contact);
+
+        echo "Contact mis à jour avec succès : " . $contact . "\n";
+    }
+
 }

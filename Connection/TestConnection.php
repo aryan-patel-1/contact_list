@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Connection.php';
+require_once 'DBConnect.php';
 
 try {
     // On appelle la méthode statique getInstance() de la classe DBConnect

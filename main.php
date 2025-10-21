@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Connection/Connection.php';
+require_once 'Connection/DBConnect.php';
 require_once 'Contact/Contact.php';
 require_once 'Contact/ContactManager.php';
 require_once 'Command.php';
@@ -10,7 +10,7 @@ $commandClass = new Command();
 
 while (true)  {
 
-    $line = readline("Entrez votre commande (list, detail, create, delete) : ");
+    $line = readline("Entrez votre commande (list, detail, create, delete, modify & help) : ");
 
     if ($line == 'list') {
         $commandClass->list();
@@ -36,6 +36,16 @@ while (true)  {
 
     if (preg_match("/^delete (.*)$/", $line, $matches)) {
         $commandClass->delete($matches[1]);
+        continue;
+    }
+
+    if ($line == 'help') {
+        $commandClass->help();
+        continue;
+    }
+
+    if (preg_match("/^modify (.*)$/", $line, $matches)) {
+        $commandClass->modify($matches[1]);
         continue;
     }
 }

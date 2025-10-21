@@ -29,7 +29,7 @@ class Contact
     }
 
     // Pour afficher le contact dans le terminal
-    public function toString(): string
+    public function __toString(): string
     {
         return $this->id . ", " . $this->name . ", " . $this->email . ", " . $this->phone_number . "\n";
     }

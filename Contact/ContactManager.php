@@ -75,4 +75,15 @@ class ContactManager
         $query->execute();
     }
 
+    public function modify(Contact $contact): void
+    {
+        $query = $this->database->prepare("UPDATE contact SET name = :name, email = :email, phone_number = :phone_number WHERE id = :id");
+
+        $query->execute([
+            "name" => $contact->getName(),
+            "email" => $contact->getEmail(),
+            "phone_number" => $contact->getPhoneNumber(),
+            "id" => $contact->getId()
+        ]);
+    }
 }
