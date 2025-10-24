@@ -77,8 +77,10 @@ class ContactManager
 
     public function modify(Contact $contact): void
     {
+        // Met à jour les informations d’un contact dans la base de données
         $query = $this->database->prepare("UPDATE contact SET name = :name, email = :email, phone_number = :phone_number WHERE id = :id");
 
+        // Exécute la requête avec les valeurs des propriétés de l’objet Contact
         $query->execute([
             "name" => $contact->getName(),
             "email" => $contact->getEmail(),

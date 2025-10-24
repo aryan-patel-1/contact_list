@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Connection/config.php';
+
 class DBConnect
 {
     // Stocke l'instance unique de DBConnect (nullable au départ)
@@ -10,7 +12,7 @@ class DBConnect
     // Constructeur privé : empêche l'instanciation directe depuis l'extérieur
     private function __construct()
     {
-       $this->pdo = new \PDO('mysql:host=127.0.0.1;dbname=contacts', 'root', '');
+        $this->pdo = new \PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
     }
 
     // Méthode statique pour récupérer l'instance unique (Singleton)

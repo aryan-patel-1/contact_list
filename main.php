@@ -48,4 +48,6 @@ while (true)  {
         $commandClass->modify($matches[1]);
         continue;
     }
+
+    echo "Commande inconnue. Tapez 'help' pour afficher l'aide.\n";
 }
